@@ -9,11 +9,18 @@ class Car extends React.Component {
 
     garageAdd = (e) => {
         e.preventDefault();
-        const newCar = {
-            model: e.target.model.value,
-            manufacture: e.target.manufacture.value,
-            year: e.target.year.value,
-            serialNum: e.target.serialNum.value
+        let newCar = {};
+        if (e.target.model.value.trim() === '' || e.target.manufacture.value.trim() === '' || e.target.year.value === '' || e.target.serialNum.value === '') {
+            alert('Empty line!');
+            return;
+        }
+        else {
+            newCar = {
+                model: e.target.model.value,
+                manufacture: e.target.manufacture.value,
+                year: e.target.year.value,
+                serialNum: e.target.serialNum.value
+            }
         }
         cars.push(newCar);
         this.setState({printGarage: true});
@@ -26,7 +33,7 @@ class Car extends React.Component {
                 <h3>{item.year}</h3>
                 <h4>{item.serialNum}</h4>
             </div>
-        ))
+        ));
     }
     handlerPrintGarage = () => {
         this.setState({printGarage: !this.state.printGarage});
@@ -35,7 +42,7 @@ class Car extends React.Component {
         if (this.state.printGarage)
             return (
                 <div>
-                    <button className={'btn btn-success'} onClick={this.handlerPrintGarage}>Hide Garage</button>
+                    <button className={'btn btn-success'} onClick={this.handlerPrintGarage}>Add new Car</button>
                     <div className={'wrapper'}>
                         {this.garagePrint()}
                     </div>
